@@ -29,13 +29,13 @@ enc = 17225440161672833784822455625619329466825406676866562462057395592190466341
 ```
 It's fairly simple to understand what's happening, a random `r` with a bitlength of `k+2` bits is chosen at random until both p and q are primes. <br>
 That polynomial `pubkey` seems daunting at first, but after trying some ways to multiply p and q we see that `pubkey = p**2 * q`. <br>
-Now, we can define `f(x)=x**6 + 5*x**5 + 10*x**4 + 13*x**3 + 10*x**2 + 5*x + 1`. we know that `f(r) = pubkey` so we can define `g(x) = f(x) - pubkey` and now we have `g(r) = 0`. <br>
+Now, we can define `f(x)=x**6 + 5*x**5 + 10*x**4 + 13*x**3 + 10*x**2 + 5*x + 1`. we know that `f(r) = pubkey` so we can define `g(x) = f(x) - pubkey` and now we have `g(r) = 0`. <br><br> 
 In order to find `r` we need to find a root of `g(x)` which is fairly simple to do. <br>
-**NOTE: I cheated and used sagemath but since g(x) is strictly increasing, r can be found by doing a simple binary search.**<br> 
+**NOTE: I cheated and used sagemath but since g(x) is strictly increasing, r can be found using binary search.**<br> <br> 
 After we find `r` we can find `p` and `q` and `n = p**2*q`, at this point things start to get interesting.<br>
 **NOTE: this is RSA but instead of n = p * q we have n = p * p * q so it works mostly the same.**<br><br>
 
-We know that `m**n % n = enc`. We can't simply reverse this equation since `gcd(n, phi) = p` but we can do something that'll be usefull later. Since `phi=p*(p-1)*(q-1)` that means that <br>
+We know that `m**n % n = enc`. We can't simply reverse this equation since `gcd(n, phi) = p` but we can do something that'll be useful later. Since `phi=p*(p-1)*(q-1)` that means that <br>
 `gcd(q, phi) = 1` and therefore we can calculate `qinv = inverse(q,phi)` so we'll get `enc**qinv % n = m**(p**2) % n`. <br>
 Now, actually p and q are both very big and probably the message is smaller than both of them so we can change the modulo in our equation from n to q `enc = m**(p**2) % q`.<br>
 At this point you probably know how to get the flag, since q is prime `phi = q-1` and that means that `gcd(p**2,phi) = 1` so we can get our message. `pinv = inverse(p**2,phi)`, `m = enc**pinv % q`. <br>
