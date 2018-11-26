@@ -33,7 +33,7 @@ Now, we can define `f(x)=x**6 + 5*x**5 + 10*x**4 + 13*x**3 + 10*x**2 + 5*x + 1`.
 In order to find `r` we need to find a root of `g(x)` which is fairly simple to do. <br>
 **NOTE: I cheated and used sagemath but since g(x) is strictly increasing, r can be found by doing a simple binary search.**<br> 
 After we find `r` we can find `p` and `q` and `n = p**2*q`, at this point things start to get interesting.<br>
-**NOTE: this is RSA but instead of n=p*q we have n=p*p*q so it works mostly the same.**<br><br>
+**NOTE: this is RSA but instead of n = p * q we have n = p * p * q so it works mostly the same.**<br><br>
 
 We know that `m**n % n = enc`. We can't simply reverse this equation since `gcd(n, phi) = p` but we can do something that'll be usefull later. Since `phi=p*(p-1)*(q-1)` that means that <br>
 `gcd(q, phi) = 1` and therefore we can calculate `qinv = inverse(q,phi)` so we'll get `enc**qinv % n = m**(p**2) % n`. <br>
