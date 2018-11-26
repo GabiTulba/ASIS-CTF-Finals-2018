@@ -29,7 +29,7 @@ enc = 17225440161672833784822455625619329466825406676866562462057395592190466341
 ```
 It's fairly simple to understand what's happening, a random `r` with a bitlength of `k+2` bits is chosen at random until both p and q are primes. <br>
 That polynomial `pubkey` seems daunting at first, but after some tries we see that `pubkey = p**2 * q`. <br><br>
-Now, we can define `f(x)=x**6 + 5*x**5 + 10*x**4 + 13*x**3 + 10*x**2 + 5*x + 1`. we know that `f(r) = pubkey` so we can define `g(x) = f(x) - pubkey` and now we have `g(r) = 0`. <br>
+Now, we can define `f(x)=x**6 + 5*x**5 + 10*x**4 + 13*x**3 + 10*x**2 + 5*x + 1`. We know that `f(r) = pubkey` so we can define `g(x) = f(x) - pubkey` and now we have `g(r) = 0`. <br>
 In order to find r we need to find a root of `g(x)` which is fairly simple to do. <br>
 After we find r we can find p and q and `n = p**2*q`, at this point things start to get interesting.<br>
 **NOTE1: I cheated and used sagemath but since g(x) is strictly increasing, r can be found using binary search.**<br> 
